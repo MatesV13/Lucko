@@ -10,12 +10,12 @@ import re
 from typing import NamedTuple
 from discord.ext import commands
 
-VERZIJA_ = "v2.37_2106(dev_alpha)"
+VERZIJA_ = "v2.37_2106"
 
 print("Program started at", int(time.time()), file=open("data_bases/bot.err", 'w'))
-#sys.stderr = open("data_bases/bot.err", 'a')
+sys.stderr = open("data_bases/bot.err", 'a')
 print("Program started at", int(time.time()), file=open("data_bases/bot.mv", 'w'))
-#sys.stdout = open("data_bases/bot.mv", 'a')
+sys.stdout = open("data_bases/bot.mv", 'a')
 
 print("Program started at", int(time.time()), file=open('data_bases/internet.debug', 'w'))
 def printdeb(data):
@@ -194,9 +194,10 @@ async def reloadSpeedBot():
 
 async def reloadPendingBot():
     global pending
+    pending = []
     pnd = open("data_bases/pending.bot", "r")
-    global pending
     for line in pnd.readlines():
+        if line == "\n": continue
         pending.append(eval(line))
     pnd.close()
     bot.pending = pending
